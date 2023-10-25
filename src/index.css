@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --mbg: theme("colors.mbg1");
+    --tbg: theme("colors.tbg1");
+    --sbg: theme("colors.sbg1");
+    --kbg: theme("colors.kbg1");
+    --ksh: theme("colors.ksh1");
+    --roc: theme("colors.roc1");
+    --rocs: theme("colors.rocs1");
+    --oyv: theme("colors.oyv1");
+    --oyvs: theme("colors.oyvs1");
+    --text: theme("colors.text1");
+    --teq: theme("colors.teq1");
+    --white: theme("colors.whites");
+  }
+}
+
+.theme1 {
+  --mbg: theme("colors.mbg1");
+  --tbg: theme("colors.tbg1");
+  --sbg: theme("colors.sbg1");
+  --kbg: theme("colors.kbg1");
+  --ksh: theme("colors.ksh1");
+  --roc: theme("colors.roc1");
+  --rocs: theme("colors.rocs1");
+  --oyv: theme("colors.oyv1");
+  --oyvs: theme("colors.oyvs1");
+  --text: theme("colors.text1");
+  --teq: theme("colors.teq1");
+  --white: theme("colors.whites");
+}
+
+.theme2 {
+  --mbg: theme("colors.mbg2");
+  --tbg: theme("colors.tbg2");
+  --sbg: theme("colors.sbg2");
+  --kbg: theme("colors.kbg2");
+  --ksh: theme("colors.ksh2");
+  --roc: theme("colors.roc2");
+  --rocs: theme("colors.rocs2");
+  --oyv: theme("colors.oyv2");
+  --oyvs: theme("colors.oyvs2");
+  --text: theme("colors.text2");
+  --teq: theme("colors.teq2");
+  --white: theme("colors.whites");
+}
+.theme3 {
+  --mbg: theme("colors.mbg3");
+  --tbg: theme("colors.tbg3");
+  --sbg: theme("colors.sbg3");
+  --kbg: theme("colors.kbg3");
+  --ksh: theme("colors.ksh3");
+  --roc: theme("colors.roc3");
+  --rocs: theme("colors.rocs3");
+  --oyv: theme("colors.oyv3");
+  --oyvs: theme("colors.oyvs3");
+  --text: theme("colors.text3");
+  --teq: theme("colors.teq3");
+  --white: theme("colors.whites");
+}

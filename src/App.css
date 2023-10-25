@@ -1,0 +1,25 @@
+.themeRange {
+  -webkit-appearance: none;
+  height: 12px;
+  /* background-color: yellow; */
+  border-radius: 50px;
+  padding: 10px 4px;
+}
+
+.themeRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.rangeThumb1::-webkit-slider-thumb {
+  background: hsl(6, 63%, 50%);
+}
+.rangeThumb2::-webkit-slider-thumb {
+  background: hsl(25, 98%, 40%);
+}
+.rangeThumb3::-webkit-slider-thumb {
+  background: hsl(176, 100%, 44%);
+}
