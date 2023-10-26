@@ -59,8 +59,8 @@ function App() {
           console.log(tdr);
           if (expRegex.test(TrAns)) {
             theFin = parseFloat(TrAns).toExponential(5);
-          } else if (TrAns.length > 11) {
-            theFin = parseFloat(TrAns).toFixed(11);
+          } else if (TrAns.includes(".")) {
+            theFin = parseFloat(TrAns).toFixed(2);
           } else {
             theFin = TrAns;
           }
