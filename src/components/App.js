@@ -1,13 +1,82 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useReducer, useContext, useState } from "react";
 import "../App.css";
+import { evaluate } from "mathjs";
 
 const RangeContext = createContext();
 function App() {
   const [range, setRange] = useState("1");
-  console.log(range);
+  // console.log(range);
+  console.log(evaluate("2+2"));
+
+  const initialState = {
+    dispaly: "",
+    err: "",
+  };
+
+  function CalcReducer(state, action) {
+    switch (action.type) {
+      case "digit":
+        return {
+          ...state,
+          dispaly: state.dispaly.concat(action.payLoad),
+          err: "",
+        };
+      case "del":
+        return {
+          ...state,
+          dispaly: state.dispaly.slice(0, -1),
+          err: "",
+        };
+      case "clear":
+        return initialState;
+      case "operator":
+        const optr = `${action.payLoad}`;
+        return {
+          ...state,
+          dispaly: state.dispaly.concat(optr),
+          err: "",
+        };
+      case "equals":
+        let finale = "";
+        try {
+          const answer = evaluate(`${state.dispaly.toString()}`);
+          finale = answer;
+        } catch {
+          finale = "ERROR";
+        }
+        if (finale === "ERROR") {
+          return {
+            ...state,
+            dispaly: "",
+            err: finale,
+          };
+        } else {
+          const TrAns = finale.toString();
+          let theFin = "";
+          const expRegex = /^[+-]?\d*\.?\d+([eE][+-]?\d+)?$/;
+          if (expRegex.test(TrAns)) {
+            theFin = parseFloat(TrAns).toExponential(5);
+          } else if (TrAns.length > 11) {
+            theFin = parseFloat(TrAns).toFixed(11);
+          } else {
+            theFin = TrAns;
+          }
+          return {
+            ...state,
+            dispaly: theFin.toString(),
+            err: "",
+          };
+        }
+      default:
+        return state;
+    }
+  }
+
+  const [state, dispatch] = useReducer(CalcReducer, initialState);
+  console.log(state.dispaly);
 
   return (
-    <RangeContext.Provider value={{ range, setRange }}>
+    <RangeContext.Provider value={{ range, setRange, state, dispatch }}>
       <div
         className={`bg-mbg h-screen theme${range} flex justify-center pt-10 lg:pt-0 lg:items-center`}
       >
@@ -38,33 +107,34 @@ function Calc() {
         <Keypad name="7" />
         <Keypad name="8" />
         <Keypad name="9" />
-        <Keypad name="DEL" tcolor="text-white" bcolor="bg-kbg" />
+        <Keypad name="DEL" tcolor="text-white" bcolor="bg-kbg" cas="del" />
         <Keypad name="4" />
         <Keypad name="5" />
         <Keypad name="6" />
-        <Keypad name="+" />
+        <Keypad name="+" cas="operator" />
         <Keypad name="1" />
         <Keypad name="2" />
         <Keypad name="3" />
-        <Keypad name="-" />
-        <Keypad name="." />
+        <Keypad name="-" cas="operator" />
+        <Keypad name="." cas="operator" />
         <Keypad name="0" />
-        <Keypad name="/" />
-        <Keypad name="x" />
+        <Keypad name="/" cas="operator" />
+        <Keypad name="x" cas="operator" load="*" />
         <Keypad
           name="RESET"
+          cas="clear"
           tcolor="text-white"
           bcolor="bg-kbg"
           classnm="col-span-2"
         />
         <Keypad
           name="="
+          cas="equals"
           tcolor="text-teq"
           bcolor="bg-roc"
           classnm="col-span-2"
         />
       </div>
-      /
     </div>
   );
 }
@@ -129,16 +199,21 @@ function ThemeChanger() {
 }
 
 function CalcScreen() {
-  const { range } = useContext(RangeContext);
+  const { range, state } = useContext(RangeContext);
+
+  const preval = state.dispaly;
+  const errr = state.err;
+  const val =
+    state.err.length !== 0 ? errr : state.dispaly.length === 0 ? "0" : preval;
   return (
     <div>
       <input
-        className={`px-6 font-lespar text-right text-[40px] w-full focus:outline-none mt-8 h-[88px] rounded-md bg-sbg theme${range} font-bold ${
+        className={` px-6 font-lespar text-right text-[40px] w-full focus:outline-none mt-8 h-[88px] rounded-md indis  bg-sbg theme${range} font-bold ${
           range === "1" ? "text-white" : "text-text"
         }`}
         name="screen"
         id="screen"
-        value="399,981"
+        value={val}
         type="text"
         readOnly
       />
@@ -151,18 +226,22 @@ function Keypad({
   bcolor = "bg-oyv",
   tcolor = "text-text",
   classnm = " ",
+  cas = "digit",
+  load = name,
 }) {
   const shad =
     name === "="
       ? "shadow-eqs text-[20px]"
       : (name === "DEL") | (name === "RESET")
       ? "shadow-del text-[20px]"
-      : "shadow-txt text-[30px] sm:text-[35px]";
-  const { range } = useContext(RangeContext);
+      : "text-[30px] shadow-txt sm:text-[35px]";
+  const { range, dispatch } = useContext(RangeContext);
 
   return (
     <div className={`${classnm}`}>
       <button
+        value={name}
+        onClick={() => dispatch({ type: `${cas}`, payLoad: `${load}` })}
         className={`pt-[15px] pb-[12px] font-bold border-none w-full text-lg rounded-md hover:scale-105  ${shad} theme${range} ${bcolor} ${tcolor}`}
       >
         {name}
