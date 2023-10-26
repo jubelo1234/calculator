@@ -102,7 +102,7 @@ function Calc() {
       </div>
       <CalcScreen />
       <div
-        className={`grid h-[55dvh] min-h-[400px] sm:h-auto grid-cols-4 grid-rows-4 w-full rounded-md gap-3.5 sm:gap-6 mt-6 p-[25px] sm:p-[30px] bg-tbg theme${range}`}
+        className={`grid h-[55dvh] min-h-[380px] sm:h-auto grid-cols-4 grid-rows-4 w-full rounded-md gap-3.5 sm:gap-6 mt-6 p-[25px] sm:p-[30px] bg-tbg theme${range}`}
       >
         <Keypad name="7" />
         <Keypad name="8" />
