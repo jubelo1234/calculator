@@ -53,7 +53,10 @@ function App() {
         } else {
           const TrAns = finale.toString();
           let theFin = "";
-          const expRegex = /^[+-]?\d*\.?\d+([eE][+-]?\d+)?$/;
+          console.log(TrAns);
+          const expRegex = /^[+-]?\d+(\.\d*)?[eE][+-]?\d+$/;
+          const tdr = expRegex.test(TrAns);
+          console.log(tdr);
           if (expRegex.test(TrAns)) {
             theFin = parseFloat(TrAns).toExponential(5);
           } else if (TrAns.length > 11) {
