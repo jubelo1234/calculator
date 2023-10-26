@@ -102,7 +102,7 @@ function Calc() {
       </div>
       <CalcScreen />
       <div
-        className={`grid grid-cols-4 grid-rows-4 w-full rounded-md gap-3.5 sm:gap-6 mt-6 p-[25px] sm:p-[30px] bg-tbg theme${range}`}
+        className={`grid h-[55dvh] min-h-[400px] sm:h-auto grid-cols-4 grid-rows-4 w-full rounded-md gap-3.5 sm:gap-6 mt-6 p-[25px] sm:p-[30px] bg-tbg theme${range}`}
       >
         <Keypad name="7" />
         <Keypad name="8" />
@@ -234,7 +234,7 @@ function Keypad({
       ? "shadow-eqs text-[20px]"
       : (name === "DEL") | (name === "RESET")
       ? "shadow-del text-[20px]"
-      : "text-[30px] shadow-txt sm:text-[35px]";
+      : "text-[35px] shadow-txt";
   const { range, dispatch } = useContext(RangeContext);
 
   return (
@@ -242,7 +242,7 @@ function Keypad({
       <button
         value={name}
         onClick={() => dispatch({ type: `${cas}`, payLoad: `${load}` })}
-        className={`pt-[15px] pb-[12px] font-bold border-none w-full text-lg rounded-md hover:scale-105  ${shad} theme${range} ${bcolor} ${tcolor}`}
+        className={`pt-[15px] h-full pb-[12px] font-bold border-none w-full text-lg rounded-md hover:scale-105  ${shad} theme${range} ${bcolor} ${tcolor}`}
       >
         {name}
       </button>
