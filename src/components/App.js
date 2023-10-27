@@ -204,7 +204,10 @@ function ThemeChanger() {
 function CalcScreen() {
   const { range, state } = useContext(RangeContext);
 
-  const preval = state.dispaly;
+  const exRegex = /^[+-]?\d+(\.\d*)?[eE][+-]?\d+$/;
+  const preval = exRegex.test(state.dispaly)
+    ? state.dispaly
+    : state.dispaly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const errr = state.err;
   const val =
     state.err.length !== 0 ? errr : state.dispaly.length === 0 ? "0" : preval;
