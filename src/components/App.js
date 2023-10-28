@@ -10,6 +10,7 @@ function App() {
 
   const initialState = {
     dispaly: "",
+    show: "",
     err: "",
   };
 
@@ -19,21 +20,24 @@ function App() {
         return {
           ...state,
           dispaly: state.dispaly.concat(action.payLoad),
+          show: state.dispaly.concat(action.payLoad),
           err: "",
         };
       case "del":
         return {
           ...state,
           dispaly: state.dispaly.slice(0, -1),
+          show: state.dispaly.slice(0, -1),
           err: "",
         };
       case "clear":
         return initialState;
       case "operator":
-        const optr = `${action.payLoad}`;
+        const optr = `\u202A${action.payLoad}`;
         return {
           ...state,
-          dispaly: state.dispaly.concat(optr),
+          dispaly: state.dispaly.concat(action.payLoad),
+          show: state.dispaly.concat(optr),
           err: "",
         };
       case "equals":
@@ -48,6 +52,7 @@ function App() {
           return {
             ...state,
             dispaly: "",
+            show: "",
             err: finale,
           };
         } else {
@@ -67,6 +72,7 @@ function App() {
           return {
             ...state,
             dispaly: theFin.toString(),
+            show: theFin.toString(),
             err: "",
           };
         }
@@ -205,16 +211,16 @@ function CalcScreen() {
   const { range, state } = useContext(RangeContext);
 
   const exRegex = /^[+-]?\d+(\.\d*)?[eE][+-]?\d+$/;
-  const preval = exRegex.test(state.dispaly)
-    ? state.dispaly
-    : state.dispaly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const preval = exRegex.test(state.show)
+    ? state.show
+    : state.show.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const errr = state.err;
   const val =
-    state.err.length !== 0 ? errr : state.dispaly.length === 0 ? "0" : preval;
+    state.err.length !== 0 ? errr : state.show.length === 0 ? "0" : preval;
   return (
     <div>
       <input
-        className={` px-6 font-lespar text-right text-[40px] w-full focus:outline-none mt-8 h-[88px] rounded-md indis  bg-sbg theme${range} font-bold ${
+        className={`drtc px-6 font-lespar text-right text-[30px] sm:text-[40px] w-full focus:outline-none mt-8 h-[88px] rounded-md indis  bg-sbg theme${range} font-bold ${
           range === "1" ? "text-white" : "text-text"
         }`}
         name="screen"
@@ -237,10 +243,10 @@ function Keypad({
 }) {
   const shad =
     name === "="
-      ? "shadow-eqs text-[20px]"
+      ? "shadow-eqs dtxt"
       : (name === "DEL") | (name === "RESET")
-      ? "shadow-del text-[20px]"
-      : "text-[35px] shadow-txt";
+      ? "shadow-del dtxt"
+      : "shadow-txt ttxt";
   const { range, dispatch } = useContext(RangeContext);
 
   return (
