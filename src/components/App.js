@@ -33,7 +33,7 @@ function App() {
       case "clear":
         return initialState;
       case "operator":
-        const optr = `\u202A${action.payLoad}`;
+        const optr = `${action.payLoad}`;
         return {
           ...state,
           dispaly: state.dispaly.concat(action.payLoad),
